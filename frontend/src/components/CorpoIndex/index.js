@@ -20,7 +20,6 @@ export default class CorpoIndex extends Component {
 		const { talao } = this.state;
 		return (
 			<div id="principal-index" className="container">
-				<Navigation />
 				<div id="corpo-index" className="body container card">
 					<br />
 					<table className="table table-hover">

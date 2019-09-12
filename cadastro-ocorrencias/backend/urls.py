@@ -15,8 +15,16 @@ Including another URLconf
 """
 from django.urls import path, include
 from django.contrib import admin
+from rest_framework import routers
+from bombeiros import views
+
+router = routers.DefaultRouter()
+router.register(r'api/talao', views.TalaoList, 'api')
+router.register(r'api/crm', views.CrmList, 'crm')
+router.register(r'api/viatura', views.ViaturaList, 'viatura')
+router.register(r'api/efetivo', views.EfetivoList, 'efetivo')
 
 urlpatterns = [
-    path('', include('bombeiros.urls')),
+    path('', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
