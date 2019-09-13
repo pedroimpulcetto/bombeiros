@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import api from '../../services/api.js';
 import Navigation from '../Menu/index.js';
+import add from '../_imagens/add.png';
 
 export default class Crm extends Component {
 	state = {
@@ -24,7 +25,7 @@ export default class Crm extends Component {
 					<span className="card-title h1">CRM's</span>
 					<button type="button" className="btn btn-outline-primary float-right">
 						Adicionar<br />
-						<img src="" alt="" />
+						<img src={add} alt="" />
 					</button>
 					<div id="body-crm" className="card-body">
 						<table className="table table-hover">
