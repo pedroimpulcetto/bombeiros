@@ -8,13 +8,14 @@ import Efetivo from './components/Efetivo/index.js';
 import Viatura from './components/Viatura/index.js';
 import ConsultaRelatorio from './components/Relatorio/consultarelatorio.js';
 import Relatorio from './components/Relatorio/index.js';
+import Modal from './components/Modal/Viatura/modal.js';
 
 function App() {
 	return (
 		<div className="App">
 			<Header />
 			<Navigation />
-			<Relatorio />
+			<Viatura />
 		</div>
 	);
 }

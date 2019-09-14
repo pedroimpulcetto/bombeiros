@@ -5,6 +5,7 @@ backend/venv
 /frontend/node_modules
 /.pnp
 .pnp.js
+Iniciar.bat
 
 # testing
 /coverage
