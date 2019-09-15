@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import api from '../../services/api.js';
 import add from '../_imagens/add.png';
 import CustomModal from '../Modal/Viatura/modal.js';
-import ModalDeletar from '../Modal/Deletar/modal.js'; //-> NAO ESTAMOS USANDO POR ENQUANDO
+import ModalDeletar from '../Modal/Deletar/modal.js';
 import axios from 'axios';
 
 export default class Viatura extends Component {
@@ -28,6 +28,7 @@ export default class Viatura extends Component {
 		this.setState({ viatura: response.data.results });
 	};
 
+	// funcao para dar refresh a cada nova interacao com a API
 	refreshList = () => {
 		axios.get('http://localhost:8000/api/viatura').then((res) => this.setState({ viatura: res.data.results }));
 	};
@@ -43,11 +44,14 @@ export default class Viatura extends Component {
 				<td>{viatura.marca_modelo_viatura}</td>
 				<td>{viatura.placa_viatura}</td>
 				<td>
-					<div class="btn-group btn-group-sm" role="group" aria-label="botoes">
-						<button onClick={() => this.editItem(viatura)} className="btn btn-secondary mr-2">
+					<div className="btn-group btn-group-sm" role="group" aria-label="botoes">
+						{/* botao editar dentro da linha */}
+						<button onClick={() => this.editItem(viatura)} className="btn btn-outline-warning mr-2">
 							Edit
 						</button>
-						<button onClick={() => this.handleDelete(viatura)} className="btn btn-danger">
+
+						{/* botao deletar dentro da linha */}
+						<button onClick={() => this.deleteItem(viatura)} className="btn btn-outline-danger">
 							Del
 						</button>
 					</div>
@@ -56,61 +60,69 @@ export default class Viatura extends Component {
 		));
 	};
 
+	// acao para acionar o Modal
 	toggle = () => {
 		this.setState({ modal: !this.state.modal });
 	};
 
-	// CHAMA O MODAL PARA CONFIRMACAO DO DELETAR
-	// NAO ESTAMOS USANDO AINDA
-	// toggleDeletar = () => {
-	// 	this.setState({ modalDeletar: !this.state.modalDeletar });
-	// };
+	// acao para acionar o Modal de confirmacao para deletar
+	toggleDeletar = () => {
+		this.setState({ modalDeletar: !this.state.modalDeletar });
+	};
 
-	// ADICIONAR E EDITAR
+	// funcao DELETAR
+	// passa como parametro o id que queremos deletar
+	handleDelete = (viatura) => {
+		this.toggleDeletar();
+		axios.delete(`http://localhost:8000/api/viatura/${viatura.id}/`, viatura.id).then((res) => this.refreshList());
+	};
+
+	// funcao ADICIONAR e EDITAR
 	handleSubmit = (viatura) => {
 		this.toggle();
+		// SE for editar, passa como parametro o id que queremos editar + as informacoes ja preenchidas
 		if (viatura.id) {
 			axios.put(`http://localhost:8000/api/viatura/${viatura.id}/`, viatura).then((res) => this.refreshList());
 			return;
 		}
+		// SE NAO, adicionamos um item novo
 		axios.post('http://localhost:8000/api/viatura/', viatura).then((res) => this.refreshList());
 		return;
 	};
 
-	// DELETAR
-	handleDelete = (viatura) => {
-		axios.delete(`http://localhost:8000/api/viatura/${viatura.id}/`).then((res) => this.refreshList());
-	};
-
 	// CHAMA O MODAL PARA ADICIONARMOS UM ITEM
+	// esta no botao adicionar
 	createItem = () => {
 		const viatura = { prefixo_viatura: '', marca_modelo_viatura: '', placa_viatura: '' };
 		this.setState({ activeItem: viatura, modal: !this.state.modal });
 	};
 
 	// CHAMA O MODAL PARA EDITARMOS UM ITEM
+	// esta no botao editar
 	editItem = (viatura) => {
 		this.setState({ activeItem: viatura, modal: !this.state.modal });
 	};
 
-	// deleteItem = (viatura) => {
-	// 	this.setState({ activeItem: viatura, modalDeletar: !this.state.modalDeletar });
-	// };
+	// CHAMA O MODAL DE CONFIRMACAO PARA EXCLUSAO
+	// esta no botao deletar
+	deleteItem = (viatura) => {
+		this.setState({ activeItem: viatura, modalDeletar: !this.state.modalDeletar });
+	};
 
 	render() {
 		return (
 			<main>
-				<div id="corpo-viaturas" class="card">
-					<div id="header-viaturas" class="card-header">
-						<span class="card-title h1">Viaturas</span>
-						<button type="button" class="btn btn-outline-primary float-right" onClick={this.createItem}>
+				<div id="corpo-viaturas" className="card">
+					<div id="header-viaturas" className="card-header">
+						<span className="card-title h1">Viaturas</span>
+						<button type="button" className="btn btn-outline-primary float-right" onClick={this.createItem}>
 							Adicionar<br />
 							<img src={add} alt="" />
 						</button>
 					</div>
-					<div id="body-viaturas" class="card-body">
-						<table class="table table-hover">
-							<thead class="thead-dark">
+					<div id="body-viaturas" className="card-body">
+						<table className="table table-hover">
+							<thead className="thead-dark">
 								<tr>
 									<th scope="col">#</th>
 									<th scope="col">Prefixo</th>
@@ -119,10 +131,11 @@ export default class Viatura extends Component {
 									<th />
 								</tr>
 							</thead>
+							{/* renderizando as linhas na tela */}
 							<tbody>{this.renderItems()}</tbody>
 						</table>
 					</div>
-					<div id="footer-viaturas" class="card-footer" />
+					<div id="footer-viaturas" className="card-footer" />
 				</div>
 
 				{/* DECLARANDO O MODAL ADICIONAR E EDITAR */}
@@ -131,10 +144,13 @@ export default class Viatura extends Component {
 				) : null}
 
 				{/* DECLARANDO O MODAL DELETAR */}
-				{/* NAO ESTAMOS USANDO POR ENQUANTO */}
-				{/* {this.state.modalDeletar ? (
-					<ModalDeletar toggleDeletar={this.toggleDeletar} onSave={this.deleteItem} />
-				) : null} */}
+				{this.state.modalDeletar ? (
+					<ModalDeletar
+						activeItem={this.state.activeItem}
+						toggleDeletar={this.toggleDeletar}
+						onSave={this.handleDelete}
+					/>
+				) : null}
 			</main>
 		);
 	}

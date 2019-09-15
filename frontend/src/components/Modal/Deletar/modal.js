@@ -6,7 +6,7 @@ export default class ModalDeletar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			viatura: []
+			activeItem: this.props.activeItem
 		};
 	}
 
@@ -19,11 +19,13 @@ export default class ModalDeletar extends Component {
 				</ModalHeader>
 				<ModalBody>
 					<Form>
-						<Label for="">Você realmente deseja excluir esse registro?</Label>
+						<Label for="">
+							<h5>Você realmente deseja excluir esse registro?</h5>
+						</Label>
 					</Form>
 				</ModalBody>
 				<ModalFooter>
-					<Button color="primary" onClick={() => onSave(this.handleDelete())}>
+					<Button color="danger" onClick={() => onSave(this.state.activeItem)}>
 						Excluir
 					</Button>
 					<Button type="reset" className="btn btn-secondary">
