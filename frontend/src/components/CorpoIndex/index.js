@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import api from '../../services/api.js';
-import Navigation from '../Menu/index.js';
+
 
 export default class CorpoIndex extends Component {
 	state = {

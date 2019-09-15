@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import api from '../../services/api.js';
-import Navigation from '../Menu/index.js';
 import add from '../_imagens/add.png';
 
 export default class Relatorio extends Component {

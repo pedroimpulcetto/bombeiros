@@ -29,7 +29,7 @@ const Navigation =()=>(
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="relatorio.html">
+                        <a className="nav-link" href="/relatorio">
                             <button type="button" className="btn btn-outline-secondary">Relatório
                                 <br/>
                                 <img src={search}/>
@@ -38,7 +38,7 @@ const Navigation =()=>(
                         
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="crm.html">
+                        <a className="nav-link" href="/crm">
                             <button type="button" className="btn btn-outline-success">CRM
                                 <br/>
                                 <img src={medical} alt=""/>
@@ -46,7 +46,7 @@ const Navigation =()=>(
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="efetivo.html">
+                        <a className="nav-link" href="/efetivo">
                             <button type="button" className="btn btn-outline-danger">Efetivo
                                 <br/>
                                 <img src={efetivo} alt=""/>
@@ -54,7 +54,7 @@ const Navigation =()=>(
                         </a>
                     </li>
                     <li className="nav-item">
-                        <a className="nav-link" href="viatura.html">
+                        <a className="nav-link" href="/viatura">
                             <button type="button" className="btn btn-outline-info">Viaturas
                                 <br/>
                                 <img src={viatura} alt=""/>
