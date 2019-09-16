@@ -74,7 +74,7 @@ export default class Viatura extends Component {
 	// passa como parametro o id que queremos deletar
 	handleDelete = (viatura) => {
 		this.toggleDeletar();
-		axios.delete(`http://localhost:8000/api/viatura/${viatura.id}/`, viatura.id).then((res) => this.refreshList());
+		axios.delete(`http://localhost:8000/api/viatura/${viatura.id}/`).then((res) => this.refreshList());
 	};
 
 	// funcao ADICIONAR e EDITAR
