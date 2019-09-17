@@ -4,6 +4,7 @@ import ModalDeletar from '../Modal/Deletar/modal.js';
 import ModalTalao from '../Modal/Talao/modal.js';
 import axios from 'axios';
 import Navigation from '../Menu/index.js';
+import add from '../_imagens/add.png';
 
 export default class CorpoIndex extends Component {
 	constructor(props) {
@@ -168,7 +169,18 @@ export default class CorpoIndex extends Component {
 		return (
 			<main>
 				<div id="principal-index" className="">
-					<div id="corpo-index" className="body card">
+					<div id="corpo-index" className="card">
+						<div id="header-efetivo" className="card-header">
+							<span className="card-title h1">Talão</span>
+							<button
+								type="button"
+								className="btn btn-outline-primary float-right"
+								onClick={this.createItem}
+							>
+								Adicionar<br />
+								<img src={add} alt="" />
+							</button>
+						</div>
 						<br />
 						<table className="table table-hover">
 							<thead className="thead-dark">

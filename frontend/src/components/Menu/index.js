@@ -26,15 +26,6 @@ export default class Navigation extends Component {
 									</button>
 								</a>
 							</li>
-							<li className="nav-item btn-group" data-toggle="buttons">
-								<a className="nav-link" href="#">
-									<button type="button" className="btn btn-outline-primary" onClick={this.createItem}>
-										Talão
-										<br />
-										<img src={add} />
-									</button>
-								</a>
-							</li>
 							<li className="nav-item">
 								<a className="nav-link" href="/relatorio">
 									<button type="button" className="btn btn-outline-secondary">
