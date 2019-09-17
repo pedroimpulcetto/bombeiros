@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import api from '../../services/api.js';
 import add from '../_imagens/add.png';
+import Navigation from '../Menu'
 
 export default class Relatorio extends Component {
 	state = {
@@ -19,6 +20,8 @@ export default class Relatorio extends Component {
 
 	render() {
 		return (
+			<main>
+				<Navigation/>
 			<div id="corpo-relatorios" className="card">
 				<div id="header-relatorio" className="card-header">
 					<h1 className="card-title">Filtrar</h1>
@@ -97,6 +100,7 @@ export default class Relatorio extends Component {
 					</div>
 				</div>
 			</div>
+			</main>
 		);
 	}
 }

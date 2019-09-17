@@ -4,6 +4,7 @@ import add from '../_imagens/add.png';
 import CustomModal from '../Modal/Viatura/modal.js';
 import ModalDeletar from '../Modal/Deletar/modal.js';
 import axios from 'axios';
+import Navigation from '../Menu'
 
 export default class Viatura extends Component {
 	constructor(props) {
@@ -112,6 +113,7 @@ export default class Viatura extends Component {
 	render() {
 		return (
 			<main>
+				<Navigation/>
 				<div id="corpo-viaturas" className="card">
 					<div id="header-viaturas" className="card-header">
 						<span className="card-title h1">Viaturas</span>

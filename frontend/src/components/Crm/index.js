@@ -4,6 +4,7 @@ import add from '../_imagens/add.png';
 import ModalDeletar from '../Modal/Deletar/modal.js';
 import ModalCrm from '../Modal/Crm/modal.js';
 import axios from 'axios';
+import Navigation from '../Menu';
 
 export default class Crm extends Component {
 	constructor(props) {
@@ -110,6 +111,7 @@ export default class Crm extends Component {
 	render() {
 		return (
 			<main>
+				<Navigation/>
 				<div id="corpo-crm" className="card">
 					<div id="header-crm" className="card-header">
 						<span className="card-title h1">CRM's</span>

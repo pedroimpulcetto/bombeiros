@@ -4,6 +4,7 @@ import add from '../_imagens/add.png';
 import ModalDeletar from '../Modal/Deletar/modal.js';
 import ModalEfetivo from '../Modal/Efetivo/modal.js';
 import axios from 'axios';
+import Navigation from '../Menu'
 
 export default class Efetivo extends Component {
 	constructor(props) {
@@ -133,6 +134,7 @@ export default class Efetivo extends Component {
 	render() {
 		return (
 			<main>
+				<Navigation/>
 				<div id="corpo-efetivo" className="card">
 					<div id="header-efetivo" className="card-header">
 						<span className="card-title h1">Efetivo</span>

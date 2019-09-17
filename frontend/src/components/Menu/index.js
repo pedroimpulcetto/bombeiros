@@ -8,6 +8,7 @@ import viatura from '../_imagens/viatura.png';
 import { Component } from 'react';
 import ModalTalao from '../Modal/Talao/modal.js';
 import axios from 'axios';
+import {Link}from 'react-router-dom'
 
 export default class Navigation extends Component {
 	render() {
@@ -18,49 +19,49 @@ export default class Navigation extends Component {
 						<br />
 						<ul className="nav nav-tabs">
 							<li className="nav-item">
-								<a className="nav-link active" href="/">
+								<Link to="/" className="nav-link active" >
 									<button type="button" className="btn btn-outline-dark">
 										Principal
 										<br />
 										<img src={principal} />
 									</button>
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="/relatorio">
+								<Link to="/relatorio" className="nav-link" >
 									<button type="button" className="btn btn-outline-secondary">
 										Relatório
 										<br />
 										<img src={search} />
 									</button>
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="/crm">
+								<Link to="/crm"className="nav-link" >
 									<button type="button" className="btn btn-outline-success">
 										CRM
 										<br />
 										<img src={medical} alt="" />
 									</button>
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="/efetivo">
+								<Link to="/efetivo" className="nav-link" >
 									<button type="button" className="btn btn-outline-danger">
 										Efetivo
 										<br />
 										<img src={efetivo} alt="" />
 									</button>
-								</a>
+								</Link>
 							</li>
 							<li className="nav-item">
-								<a className="nav-link" href="/viatura">
+								<Link to="/viatura" className="nav-link">
 									<button type="button" className="btn btn-outline-info">
 										Viaturas
 										<br />
 										<img src={viatura} alt="" />
 									</button>
-								</a>
+								</Link>
 							</li>
 						</ul>
 					</div>

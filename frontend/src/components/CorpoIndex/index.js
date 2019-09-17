@@ -5,6 +5,7 @@ import ModalTalao from '../Modal/Talao/modal.js';
 import axios from 'axios';
 import Navigation from '../Menu/index.js';
 import add from '../_imagens/add.png';
+import {Link} from 'react-router-dom'
 
 export default class CorpoIndex extends Component {
 	constructor(props) {
@@ -168,6 +169,7 @@ export default class CorpoIndex extends Component {
 	render() {
 		return (
 			<main>
+				<Navigation/>
 				<div id="principal-index" className="">
 					<div id="corpo-index" className="card">
 						<div id="header-efetivo" className="card-header">
