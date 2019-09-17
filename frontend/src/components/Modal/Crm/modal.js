@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label } from 'reactstrap';
+import {
+	Button,
+	Modal,
+	ModalHeader,
+	ModalBody,
+	ModalFooter,
+	Form,
+	FormGroup,
+	Input,
+	Label,
+	Row,
+	Col
+} from 'reactstrap';
 
 export default class ModalCrm extends Component {
 	constructor(props) {
@@ -24,16 +36,20 @@ export default class ModalCrm extends Component {
 				</ModalHeader>
 				<ModalBody>
 					<Form>
-						<FormGroup>
-							<Label for="prefixo_viatura">Crm</Label>
-							<Input
-								type="number"
-								name="crm_crm"
-								value={this.state.activeItem.crm_crm}
-								onChange={this.handleChange}
-								placeholder=""
-							/>
-						</FormGroup>
+						<Row>
+							<Col md={4}>
+								<FormGroup>
+									<Label for="prefixo_viatura">Crm</Label>
+									<Input
+										type="number"
+										name="crm_crm"
+										value={this.state.activeItem.crm_crm}
+										onChange={this.handleChange}
+										placeholder=""
+									/>
+								</FormGroup>
+							</Col>
+						</Row>
 						<FormGroup>
 							<Label for="marca_modelo_viatura">Nome do Medico</Label>
 							<Input
