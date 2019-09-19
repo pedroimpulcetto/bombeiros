@@ -1,5 +1,12 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+.idea
+# If you are using sqlite3
+*.sqlite3
+# Name of your virtuan env
+.vEnv
+*pyc
+
 # dependencies
 backend/venv
 /frontend/node_modules
