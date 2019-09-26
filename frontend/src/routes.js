@@ -6,6 +6,7 @@ import Relatorio from './components/Relatorio';
 import Crm from './components/Crm';
 import Efetivo from './components/Efetivo';
 import Viatura from './components/Viatura';
+import ConsultaRelatorio from './components/Relatorio/consultarelatorio.js';
 
 const Routes = () => (
 	<BrowserRouter>
@@ -15,6 +16,7 @@ const Routes = () => (
 			<Route path="/crm" component={Crm} />
 			<Route path="/efetivo" component={Efetivo} />
 			<Route path="/viatura" component={Viatura} />
+			<Route path="/resultado-consulta" component={ConsultaRelatorio} />
 		</Switch>
 	</BrowserRouter>
 );

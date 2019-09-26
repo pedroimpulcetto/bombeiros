@@ -4,7 +4,7 @@ import add from '../_imagens/add.png';
 import CustomModal from '../Modal/Viatura/modal.js';
 import ModalDeletar from '../Modal/Deletar/modal.js';
 import axios from 'axios';
-import Navigation from '../Menu'
+import Navigation from '../Menu';
 
 export default class Viatura extends Component {
 	constructor(props) {
@@ -40,7 +40,7 @@ export default class Viatura extends Component {
 		const newItems = this.state.viatura;
 		return newItems.map((viatura) => (
 			<tr key={viatura.id}>
-				<th>{(this.state.numerador += 1)}</th>
+				<th>{viatura.id}</th>
 				<td>{viatura.prefixo_viatura}</td>
 				<td>{viatura.marca_modelo_viatura}</td>
 				<td>{viatura.placa_viatura}</td>
@@ -113,7 +113,7 @@ export default class Viatura extends Component {
 	render() {
 		return (
 			<main>
-				<Navigation/>
+				<Navigation />
 				<div id="corpo-viaturas" className="card">
 					<div id="header-viaturas" className="card-header">
 						<span className="card-title h1">Viaturas</span>

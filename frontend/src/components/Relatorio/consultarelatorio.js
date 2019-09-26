@@ -1,21 +1,15 @@
 import React, { Component } from 'react';
 import api from '../../services/api.js';
-import Navigation from '../Menu/index.js';
-import add from '../_imagens/add.png';
-
 export default class ConsultaRelatorio extends Component {
-	state = {
-		relatorio: [],
-		numerador: 0
-	};
-
 	componentDidMount() {
 		this.loadProducts();
 	}
 
 	loadProducts = async () => {
 		const response = await api.get('talao/');
-		this.setState({ relatorio: response.data.results });
+		if (response.data.results.talao.data_talao == '1991-02-22') {
+			this.setState({ relatorio: response.data.results });
+		}
 	};
 
 	render() {

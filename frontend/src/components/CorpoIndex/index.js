@@ -5,7 +5,6 @@ import ModalTalao from '../Modal/Talao/modal.js';
 import axios from 'axios';
 import Navigation from '../Menu/index.js';
 import add from '../_imagens/add.png';
-import {Link} from 'react-router-dom'
 
 export default class CorpoIndex extends Component {
 	constructor(props) {
@@ -63,7 +62,7 @@ export default class CorpoIndex extends Component {
 		const newItems = this.state.talao;
 		return newItems.map((talao) => (
 			<tr key={talao.id}>
-				<th scope="row">{(this.state.numerador += 1)}</th>
+				<th scope="row">{talao.id}</th>
 				<td>{talao.data_talao}</td>
 				<td>{talao.num_talao}</td>
 				<td>
@@ -169,7 +168,7 @@ export default class CorpoIndex extends Component {
 	render() {
 		return (
 			<main>
-				<Navigation/>
+				<Navigation />
 				<div id="principal-index" className="">
 					<div id="corpo-index" className="card">
 						<div id="header-efetivo" className="card-header">

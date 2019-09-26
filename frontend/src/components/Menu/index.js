@@ -1,16 +1,45 @@
 import React from 'react';
 import principal from '../_imagens/principal.png';
-import add from '../_imagens/add.png';
 import search from '../_imagens/search.png';
 import medical from '../_imagens/medical.png';
 import efetivo from '../_imagens/efetivo.png';
 import viatura from '../_imagens/viatura.png';
 import { Component } from 'react';
-import ModalTalao from '../Modal/Talao/modal.js';
-import axios from 'axios';
-import {Link}from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 export default class Navigation extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			filterReport: {
+				dataDe: '',
+				dataAte: '',
+				rua: '',
+				bairro: '',
+				atendente: '',
+				tipoOcor: '',
+				viatura: '',
+				motorista: '',
+				comandante: ''
+			}
+		};
+	}
+
+	createItem = () => {
+		const filter = {
+			dataDe: '',
+			dataAte: '',
+			rua: '',
+			bairro: '',
+			atendente: '',
+			tipoOcor: '',
+			viatura: '',
+			motorista: '',
+			comandante: ''
+		};
+		this.setState({ filterReport: filter });
+	};
+
 	render() {
 		return (
 			<main>
@@ -19,7 +48,7 @@ export default class Navigation extends Component {
 						<br />
 						<ul className="nav nav-tabs">
 							<li className="nav-item">
-								<Link to="/" className="nav-link active" >
+								<Link to="/" className="nav-link active">
 									<button type="button" className="btn btn-outline-dark">
 										Principal
 										<br />
@@ -28,8 +57,12 @@ export default class Navigation extends Component {
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link to="/relatorio" className="nav-link" >
-									<button type="button" className="btn btn-outline-secondary">
+								<Link to="/relatorio" className="nav-link">
+									<button
+										type="button"
+										className="btn btn-outline-secondary"
+										onClick={this.createItem}
+									>
 										Relatório
 										<br />
 										<img src={search} />
@@ -37,7 +70,7 @@ export default class Navigation extends Component {
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link to="/crm"className="nav-link" >
+								<Link to="/crm" className="nav-link">
 									<button type="button" className="btn btn-outline-success">
 										CRM
 										<br />
@@ -46,7 +79,7 @@ export default class Navigation extends Component {
 								</Link>
 							</li>
 							<li className="nav-item">
-								<Link to="/efetivo" className="nav-link" >
+								<Link to="/efetivo" className="nav-link">
 									<button type="button" className="btn btn-outline-danger">
 										Efetivo
 										<br />
