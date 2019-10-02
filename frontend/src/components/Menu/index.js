@@ -8,38 +8,6 @@ import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class Navigation extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			filterReport: {
-				dataDe: '',
-				dataAte: '',
-				rua: '',
-				bairro: '',
-				atendente: '',
-				tipoOcor: '',
-				viatura: '',
-				motorista: '',
-				comandante: ''
-			}
-		};
-	}
-
-	createItem = () => {
-		const filter = {
-			dataDe: '',
-			dataAte: '',
-			rua: '',
-			bairro: '',
-			atendente: '',
-			tipoOcor: '',
-			viatura: '',
-			motorista: '',
-			comandante: ''
-		};
-		this.setState({ filterReport: filter });
-	};
-
 	render() {
 		return (
 			<main>
@@ -58,11 +26,7 @@ export default class Navigation extends Component {
 							</li>
 							<li className="nav-item">
 								<Link to="/relatorio" className="nav-link">
-									<button
-										type="button"
-										className="btn btn-outline-secondary"
-										onClick={this.createItem}
-									>
+									<button type="button" className="btn btn-outline-secondary">
 										Relatório
 										<br />
 										<img src={search} />

@@ -6,18 +6,23 @@ import Relatorio from './components/Relatorio';
 import Crm from './components/Crm';
 import Efetivo from './components/Efetivo';
 import Viatura from './components/Viatura';
-import ConsultaRelatorio from './components/Relatorio/consultarelatorio.js';
+import ResultadoRelatorio from './components/Relatorio/resultado-relatorio.js';
+
+import store from './store';
+import { Provider } from 'react-redux';
 
 const Routes = () => (
 	<BrowserRouter>
-		<Switch>
-			<Route exact path="/" component={CorpoIndex} />
-			<Route path="/relatorio" component={Relatorio} />
-			<Route path="/crm" component={Crm} />
-			<Route path="/efetivo" component={Efetivo} />
-			<Route path="/viatura" component={Viatura} />
-			<Route path="/resultado-consulta" component={ConsultaRelatorio} />
-		</Switch>
+		<Provider store={store}>
+			<Switch>
+				<Route exact path="/" component={CorpoIndex} />
+				<Route path="/relatorio" component={Relatorio} />
+				<Route path="/crm" component={Crm} />
+				<Route path="/efetivo" component={Efetivo} />
+				<Route path="/viatura" component={Viatura} />
+				<Route path="/resultado-relatorio" component={ResultadoRelatorio} />
+			</Switch>
+		</Provider>
 	</BrowserRouter>
 );
 

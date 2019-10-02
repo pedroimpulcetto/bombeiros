@@ -1,134 +1,155 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Navigation from '../Menu';
 import { Link } from 'react-router-dom';
 
-export default class Relatorio extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			filterReport: this.props.filterReport
-		};
+import { useDispatch } from 'react-redux';
+
+export default function Relatorio() {
+	let [ filterReport, setState ] = useState({
+		data_de_talao: '',
+		data_ate_talao: '',
+		endereco_talao: '',
+		bairro_talao: '',
+		atendente_talao: '',
+		tipo_ocor_talao: '',
+		viatura_talao: '',
+		motorista_talao: '',
+		comandante_talao: ''
+	});
+
+	function handleChange(e) {
+		let { name, value } = e.target;
+		setState({ ...filterReport, [name]: value });
 	}
 
-	handleChange = (e) => {
-		let { name, value } = e.target;
-		const filterReport = { ...this.state.filterReport, [name]: value };
-		this.setState({ filterReport });
-	};
+	// instanciando a funcao useDispatch
+	const dispatch = useDispatch();
 
-	render() {
-		return (
-			<main>
-				<Navigation />
-				<div id="corpo-relatorios" className="card">
-					<div id="header-relatorio" className="card-header">
-						<h1 className="card-title">Filtrar</h1>
-					</div>
-					<div id="body-relatorio" className="card-body">
-						<form onSubmit={this.handleSubmit}>
-							<div className="form-row">
-								<div className="form-group col-md-2">
-									<label for="inputRelDateDE">Data - de:</label>
-									<input
-										type="date"
-										className="form-control"
-										name="inputRelDateDE"
-										onChange={this.handleChange}
-									/>
-								</div>
-								<div className="form-group col-md-2">
-									<label for="inputRelDateATE">até:</label>
-									<input
-										type="date"
-										className="form-control"
-										name="inputRelDateATE"
-										onChange={this.handleChange}
-									/>
-								</div>
+	// funcao para adicionar 'valores' para o store
+	function addFilterAction(filter) {
+		return { type: 'ADD_FILTER', filter: filter };
+	}
+
+	// funcao para enviar 'valores' para o store
+	function sendFilter() {
+		dispatch(addFilterAction(filterReport));
+	}
+
+	console.log(filterReport);
+
+	return (
+		<main>
+			<Navigation />
+			<div id="corpo-relatorios" className="card">
+				<div id="header-relatorio" className="card-header">
+					<h1 className="card-title">Filtrar</h1>
+				</div>
+				<div id="body-relatorio" className="card-body">
+					<form>
+						<div className="form-row">
+							<div className="form-group col-md-2">
+								<label for="data_de_talao">Data - de:</label>
+								<input
+									type="date"
+									className="form-control"
+									name="data_de_talao"
+									onChange={handleChange}
+								/>
 							</div>
-							<div className="form-row">
-								<div className="form-group col-md-5">
-									<label for="inputRelRua">Rua</label>
-									<input
-										type="text"
-										className="form-control editar"
-										name="inputRelRua"
-										placeholder="RUA JOSÉ LOPES SILVA"
-										onChange={this.handleChange}
-									/>
-								</div>
-								<div className="form-group col-md-2">
-									<label for="inputRelBairro">Bairro</label>
-									<input
-										type="text"
-										className="form-control"
-										name="inputRelBairro"
-										placeholder="JARDIM EROISE"
-										onChange={this.handleChange}
-									/>
-								</div>
+							<div className="form-group col-md-2">
+								<label for="data_ate_talao">até:</label>
+								<input
+									type="date"
+									className="form-control"
+									name="data_ate_talao"
+									onChange={handleChange}
+								/>
 							</div>
-							<div className="form-row">
-								<div className="form-group col-md-2">
-									<label for="inputRelAtendente">Atendente</label>
-									<input
-										type="text"
-										className="form-control"
-										name="inputRelAtendente"
-										placeholder="CB FAVERI"
-										onChange={this.handleChange}
-									/>
-								</div>
-								<div className="form-group col-md-4">
-									<label for="inputRelTipoOcorrencia">Tipo de Ocorrência</label>
-									<input
-										type="text"
-										className="form-control"
-										name="inputRelTipoOcorrencia"
-										placeholder="CARRO X MOTO"
-										onChange={this.handleChange}
-									/>
-								</div>
-								<div className="form-group col-md-2">
-									<label for="inputRelVtr">Viatura</label>
-									<input
-										type="text"
-										className="form-control"
-										name="inputRelVtr"
-										placeholder="UR16215"
-										onChange={this.handleChange}
-									/>
-								</div>
+						</div>
+						<div className="form-row">
+							<div className="form-group col-md-5">
+								<label for="endereco_talao">Rua</label>
+								<input
+									type="text"
+									className="form-control editar"
+									name="endereco_talao"
+									placeholder="RUA JOSÉ LOPES SILVA"
+									onChange={handleChange}
+								/>
 							</div>
-							<div className="form-row">
-								<div className="form-group col-md-2">
-									<label for="inputRelMotorista">Motorista</label>
-									<input
-										type="text"
-										className="form-control"
-										name="inputRelMotorista"
-										onChange={this.handleChange}
-									/>
-								</div>
-								<div className="form-group col-md-2">
-									<label for="inputRelComandante">Comandante</label>
-									<input
-										type="text"
-										className="form-control"
-										name="inputRelComandante"
-										onChange={this.handleChange}
-									/>
-								</div>
+							<div className="form-group col-md-2">
+								<label for="bairro_talao">Bairro</label>
+								<input
+									type="text"
+									className="form-control"
+									name="bairro_talao"
+									placeholder="JARDIM EROISE"
+									onChange={handleChange}
+								/>
 							</div>
-						</form>
-						<div id="footer-relatorio" className="card-footer">
-							<button type="submit" className="btn btn-primary float-right">
+						</div>
+						<div className="form-row">
+							<div className="form-group col-md-2">
+								<label for="atendente_talao">Atendente</label>
+								<input
+									type="text"
+									className="form-control"
+									name="atendente_talao"
+									placeholder="CB FAVERI"
+									onChange={handleChange}
+								/>
+							</div>
+							<div className="form-group col-md-4">
+								<label for="tipo_ocor_talao">Tipo de Ocorrência</label>
+								<input
+									type="text"
+									className="form-control"
+									name="tipo_ocor_talao"
+									placeholder="CARRO X MOTO"
+									onChange={handleChange}
+								/>
+							</div>
+							<div className="form-group col-md-2">
+								<label for="viatura_talao">Viatura</label>
+								<input
+									type="text"
+									className="form-control"
+									name="viatura_talao"
+									placeholder="UR16215"
+									onChange={handleChange}
+								/>
+							</div>
+						</div>
+						<div className="form-row">
+							<div className="form-group col-md-2">
+								<label for="motorista_talao">Motorista</label>
+								<input
+									type="text"
+									className="form-control"
+									name="motorista_talao"
+									onChange={handleChange}
+								/>
+							</div>
+							<div className="form-group col-md-2">
+								<label for="comandante_talao">Comandante</label>
+								<input
+									type="text"
+									className="form-control"
+									name="comandante_talao"
+									onChange={handleChange}
+								/>
+							</div>
+						</div>
+					</form>
+					<div id="footer-relatorio" className="card-footer">
+						<Link to="/resultado-relatorio">
+							<button type="submit" className="btn btn-primary float-right" onClick={sendFilter()}>
 								Gerar Relatório
 							</button>
-						</div>
+						</Link>
 					</div>
 				</div>
-			</main>
-		);
-	}
+			</div>
+		</main>
+	);
 }

@@ -28,6 +28,7 @@ export default class ModalTalao extends Component {
 	};
 
 	render() {
+		console.log(this.state.activeItem);
 		const { toggle, onSave } = this.props;
 		return (
 			<Modal isOpen={true} toggle={toggle} size="xl">

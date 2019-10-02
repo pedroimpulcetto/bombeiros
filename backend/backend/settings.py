@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'webpack_loader',
+    'django_filters',
     'bombeiros',
 ]
 
@@ -144,6 +145,7 @@ REST_FRAMEWORK = {
     # delimitando a quantidade de registros por pagina
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
+    'DEFAULT_FILTER_BACKENDS': ['url_filter.integrations.drf.DjangoFilterBackend']
 }
 
 
