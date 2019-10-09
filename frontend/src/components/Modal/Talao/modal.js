@@ -12,14 +12,39 @@ import {
 	Row,
 	Col
 } from 'reactstrap';
+import api from '../../../services/api.js';
 
 export default class ModalTalao extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			activeItem: this.props.activeItem
+			activeItem: this.props.activeItem,
+			viatura: [],
+			efetivo: []
 		};
 	}
+
+	componentDidMount() {
+		this.loadProducts();
+	}
+
+	loadProducts = async () => {
+		const response = await api.get('viatura/');
+		this.setState({ viatura: response.data.results });
+
+		const efetivo = await api.get('efetivo/');
+		this.setState({ efetivo: efetivo.data.results });
+	};
+
+	renderViaturas = () => {
+		const vtr = this.state.viatura;
+		return vtr.map((viatura) => <option>{viatura.prefixo_viatura}</option>);
+	};
+
+	renderEfetivo = () => {
+		const efetivo = this.state.efetivo;
+		return efetivo.map((efetivo) => <option>{efetivo.nome_guerra_efetivo}</option>);
+	};
 
 	handleChange = (e) => {
 		let { name, value } = e.target;
@@ -28,7 +53,7 @@ export default class ModalTalao extends Component {
 	};
 
 	render() {
-		console.log(this.state.activeItem);
+		console.log(this.state.viatura);
 		const { toggle, onSave } = this.props;
 		return (
 			<Modal isOpen={true} toggle={toggle} size="xl">
@@ -142,12 +167,17 @@ export default class ModalTalao extends Component {
 								<FormGroup>
 									<Label for="atendente_talao">Atendente</Label>
 									<Input
-										type="text"
+										type="select"
 										name="atendente_talao"
 										value={this.state.activeItem.atendente_talao}
 										onChange={this.handleChange}
 										placeholder=""
-									/>
+									>
+										<option value="" selected disabled hidden>
+											Selecione..
+										</option>
+										{this.renderEfetivo()}
+									</Input>
 								</FormGroup>
 							</Col>
 							<Col md={4}>
@@ -178,12 +208,17 @@ export default class ModalTalao extends Component {
 								<FormGroup>
 									<Label for="viatura_talao">Viatura</Label>
 									<Input
-										type="text"
+										type="select"
 										name="viatura_talao"
 										value={this.state.activeItem.viatura_talao}
 										onChange={this.handleChange}
 										placeholder=""
-									/>
+									>
+										<option value="" selected disabled hidden>
+											Selecione..
+										</option>
+										{this.renderViaturas()}
+									</Input>
 								</FormGroup>
 							</Col>
 						</Row>
@@ -326,24 +361,34 @@ export default class ModalTalao extends Component {
 								<FormGroup>
 									<Label for="motorista_talao">Motorista</Label>
 									<Input
-										type="text"
+										type="select"
 										name="motorista_talao"
 										value={this.state.activeItem.motorista_talao}
 										onChange={this.handleChange}
 										placeholder=""
-									/>
+									>
+										<option value="" selected disabled hidden>
+											Selecione..
+										</option>
+										{this.renderEfetivo()}
+									</Input>
 								</FormGroup>
 							</Col>
 							<Col md={4}>
 								<FormGroup>
 									<Label for="comandante_talao">Comandante</Label>
 									<Input
-										type="email"
+										type="select"
 										name="comandante_talao"
 										value={this.state.activeItem.comandante_talao}
 										onChange={this.handleChange}
 										placeholder=""
-									/>
+									>
+										<option value="" selected disabled hidden>
+											Selecione..
+										</option>
+										{this.renderEfetivo()}
+									</Input>
 								</FormGroup>
 							</Col>
 						</Row>

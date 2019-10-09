@@ -68,6 +68,28 @@ export default function ResultadoRelatorio() {
 		fetchData();
 	}, []); // Or [] if effect doesn't need props or state
 
+	// filtros quantitativos
+	let totTalao = resultReport.talao.length;
+	let totSalv = 0;
+	let totRes = 0;
+	let totInc = 0;
+	let totOut = 0;
+
+	resultReport.talao.map((talao) => {
+		if (talao.tipo_ocor_talao == 'SALVAMENTO') {
+			totSalv += 1;
+		}
+		if (talao.tipo_ocor_talao == 'RESGATE') {
+			totRes += 1;
+		}
+		if (talao.tipo_ocor_talao == 'INCENDIO') {
+			totInc += 1;
+		}
+		if (talao.tipo_ocor_talao == 'OUTROS') {
+			totOut += 1;
+		}
+	});
+
 	// renderizando os resultados linha a linha
 	function renderResult() {
 		const newItems = resultReport.talao;
@@ -125,28 +147,37 @@ export default function ResultadoRelatorio() {
 	console.log(filterReport);
 
 	return (
-		<div id="corpo-relatorio" className="card">
-			<div id="header-relatorio" className="card-header">
-				{renderHeader()}
+		<main>
+			<div id="corpo-relatorio" className="card">
+				<div id="header-relatorio" className="card-header">
+					{renderHeader()}
+				</div>
+				<div>
+					<h5>Total de ocorrencias filtradas: {totTalao}</h5>
+					<h6>INCENDIOS: {totInc}</h6>
+					<h6>RESGATES: {totRes}</h6>
+					<h6>SALVAMENTOS: {totSalv}</h6>
+					<h6>OUTROS: {totOut}</h6>
+				</div>
+				<table className="table table-hover">
+					<thead className="thead-dark">
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Data</th>
+							<th scope="col">Talão</th>
+							<th scope="col">Endereço</th>
+							<th scope="col">Tipo de Ocor.</th>
+							<th scope="col">Viatura</th>
+							<th scope="col">Odo. Saída</th>
+							<th scope="col">Odo. Local</th>
+							<th scope="col">Odo. Final</th>
+							<th />
+							<th />
+						</tr>
+					</thead>
+					<tbody>{renderResult()}</tbody>
+				</table>
 			</div>
-			<table className="table table-hover">
-				<thead className="thead-dark">
-					<tr>
-						<th scope="col">#</th>
-						<th scope="col">Data</th>
-						<th scope="col">Talão</th>
-						<th scope="col">Endereço</th>
-						<th scope="col">Tipo de Ocor.</th>
-						<th scope="col">Viatura</th>
-						<th scope="col">Odo. Saída</th>
-						<th scope="col">Odo. Local</th>
-						<th scope="col">Odo. Final</th>
-						<th />
-						<th />
-					</tr>
-				</thead>
-				<tbody>{renderResult()}</tbody>
-			</table>
-		</div>
+		</main>
 	);
 }
