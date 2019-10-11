@@ -17,7 +17,8 @@ export default class ModalCrm extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			activeItem: this.props.activeItem
+			activeItem: this.props.activeItem,
+			valid: 'valid'
 		};
 	}
 

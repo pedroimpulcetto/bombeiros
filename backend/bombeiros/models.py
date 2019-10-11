@@ -3,8 +3,8 @@ from django.db import models
 
 class Talao(models.Model):
     num_talao = models.IntegerField(blank=True, null=True)
-    data_talao = models.DateField(auto_now=True, auto_now_add=False)
-    hora_chamada_talao = models.TimeField(auto_now=True, auto_now_add=False)
+    data_talao = models.DateField(auto_now=False, auto_now_add=False)
+    hora_chamada_talao = models.TimeField(auto_now=False, auto_now_add=False)
     solicitante_talao = models.CharField(max_length=30, blank=True, null=True)
     tel_talao = models.IntegerField(blank=True, null=True)
     endereco_talao = models.CharField(max_length=150, blank=True, null=True)

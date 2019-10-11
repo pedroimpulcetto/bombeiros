@@ -43,7 +43,11 @@ export default class ModalTalao extends Component {
 
 	renderEfetivo = () => {
 		const efetivo = this.state.efetivo;
-		return efetivo.map((efetivo) => <option>{efetivo.nome_guerra_efetivo}</option>);
+		return efetivo.map((efetivo) => (
+			<option>
+				{efetivo.post_grad_efetivo} {efetivo.nome_guerra_efetivo}
+			</option>
+		));
 	};
 
 	handleChange = (e) => {
@@ -184,12 +188,20 @@ export default class ModalTalao extends Component {
 								<FormGroup>
 									<Label for="tipo_ocor_talao">Tipo Ocorrencia</Label>
 									<Input
-										type="text"
+										type="select"
 										name="tipo_ocor_talao"
 										value={this.state.activeItem.tipo_ocor_talao}
 										onChange={this.handleChange}
 										placeholder=""
-									/>
+									>
+										<option value="" selected disabled hidden>
+											Selecione..
+										</option>
+										<option>RESGATE</option>
+										<option>INCÊNDIO</option>
+										<option>SALVAMENTO</option>
+										<option>OUTROS</option>
+									</Input>
 								</FormGroup>
 							</Col>
 							<Col md={2}>

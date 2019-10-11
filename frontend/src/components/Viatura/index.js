@@ -5,6 +5,7 @@ import CustomModal from '../Modal/Viatura/modal.js';
 import ModalDeletar from '../Modal/Deletar/modal.js';
 import axios from 'axios';
 import Navigation from '../Menu';
+import { UncontrolledAlert } from 'reactstrap';
 
 export default class Viatura extends Component {
 	constructor(props) {
@@ -16,7 +17,9 @@ export default class Viatura extends Component {
 				placa_viatura: ''
 			},
 			viatura: [],
-			numerador: 0
+			numerador: 0,
+			alertOk: false,
+			textAlert: ''
 		};
 	}
 
@@ -75,7 +78,10 @@ export default class Viatura extends Component {
 	// passa como parametro o id que queremos deletar
 	handleDelete = (viatura) => {
 		this.toggleDeletar();
-		axios.delete(`http://localhost:8000/api/viatura/${viatura.id}/`).then((res) => this.refreshList());
+		axios
+			.delete(`http://localhost:8000/api/viatura/${viatura.id}/`)
+			.then((res) => this.refreshList())
+			.then((alert) => this.onShowAlert('Apagada'));
 	};
 
 	// funcao ADICIONAR e EDITAR
@@ -83,11 +89,17 @@ export default class Viatura extends Component {
 		this.toggle();
 		// SE for editar, passa como parametro o id que queremos editar + as informacoes ja preenchidas
 		if (viatura.id) {
-			axios.put(`http://localhost:8000/api/viatura/${viatura.id}/`, viatura).then((res) => this.refreshList());
+			axios
+				.put(`http://localhost:8000/api/viatura/${viatura.id}/`, viatura)
+				.then((res) => this.refreshList())
+				.then((alert) => this.onShowAlert('Alterada'));
 			return;
 		}
 		// SE NAO, adicionamos um item novo
-		axios.post('http://localhost:8000/api/viatura/', viatura).then((res) => this.refreshList());
+		axios
+			.post('http://localhost:8000/api/viatura/', viatura)
+			.then((res) => this.refreshList())
+			.then((alert) => this.onShowAlert('Adicionada'));
 		return;
 	};
 
@@ -110,6 +122,14 @@ export default class Viatura extends Component {
 		this.setState({ activeItem: viatura, modalDeletar: !this.state.modalDeletar });
 	};
 
+	onShowAlert = (text) => {
+		this.setState({ alertOk: true, textAlert: text }, () => {
+			window.setTimeout(() => {
+				this.setState({ alertOk: false });
+			}, 3000);
+		});
+	};
+
 	render() {
 		return (
 			<main>
@@ -123,6 +143,9 @@ export default class Viatura extends Component {
 						</button>
 					</div>
 					<div id="body-viaturas" className="card-body">
+						<UncontrolledAlert isOpen={this.state.alertOk}>
+							Viatura {this.state.textAlert} com sucesso!
+						</UncontrolledAlert>
 						<table className="table table-hover">
 							<thead className="thead-dark">
 								<tr>

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api.js';
+import { Link } from 'react-router-dom';
+import principal from '../_imagens/principal.png';
+import search from '../_imagens/return.png';
 
 import { useSelector } from 'react-redux';
 
@@ -82,7 +85,7 @@ export default function ResultadoRelatorio() {
 		if (talao.tipo_ocor_talao == 'RESGATE') {
 			totRes += 1;
 		}
-		if (talao.tipo_ocor_talao == 'INCENDIO') {
+		if (talao.tipo_ocor_talao == 'INCÊNDIO') {
 			totInc += 1;
 		}
 		if (talao.tipo_ocor_talao == 'OUTROS') {
@@ -144,20 +147,56 @@ export default function ResultadoRelatorio() {
 		));
 	}
 
-	console.log(filterReport);
-
 	return (
 		<main>
 			<div id="corpo-relatorio" className="card">
 				<div id="header-relatorio" className="card-header">
 					{renderHeader()}
 				</div>
-				<div>
-					<h5>Total de ocorrencias filtradas: {totTalao}</h5>
-					<h6>INCENDIOS: {totInc}</h6>
-					<h6>RESGATES: {totRes}</h6>
-					<h6>SALVAMENTOS: {totSalv}</h6>
-					<h6>OUTROS: {totOut}</h6>
+				<div style={{ display: 'inline' }}>
+					<ul className="nav nav-tabs">
+						<li className="nav-item">
+							<Link to="/" className="nav-link">
+								<button type="button" className="btn btn-outline-danger">
+									Principal
+									<br />
+									<img src={principal} />
+								</button>
+							</Link>
+						</li>
+						<li className="nav-item">
+							<Link to="/relatorio" className="nav-link">
+								<button type="button" className="btn btn-outline-info">
+									Voltar
+									<br />
+									<img src={search} />
+								</button>
+							</Link>
+						</li>
+						<li>
+							<ul>
+								<li>
+									<h5>Total de ocorrencias filtradas: {totTalao}</h5>
+								</li>
+								<li>
+									<h6>INCENDIOS: {totInc}</h6>
+								</li>
+								<li>
+									<h6>RESGATES: {totRes}</h6>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<ul>
+								<li>
+									<h6>SALVAMENTOS: {totSalv}</h6>
+								</li>
+								<li>
+									<h6>OUTROS: {totOut}</h6>
+								</li>
+							</ul>
+						</li>
+					</ul>
 				</div>
 				<table className="table table-hover">
 					<thead className="thead-dark">

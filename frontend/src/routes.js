@@ -10,6 +10,7 @@ import ResultadoRelatorio from './components/Relatorio/resultado-relatorio.js';
 
 import store from './store';
 import { Provider } from 'react-redux';
+import GeralChart from './components/Charts/geral';
 
 const Routes = () => (
 	<BrowserRouter>
@@ -21,6 +22,7 @@ const Routes = () => (
 				<Route path="/efetivo" component={Efetivo} />
 				<Route path="/viatura" component={Viatura} />
 				<Route path="/resultado-relatorio" component={ResultadoRelatorio} />
+				<Route path="/graficos" component={GeralChart} />
 			</Switch>
 		</Provider>
 	</BrowserRouter>

@@ -4,6 +4,7 @@ import search from '../_imagens/search.png';
 import medical from '../_imagens/medical.png';
 import efetivo from '../_imagens/efetivo.png';
 import viatura from '../_imagens/viatura.png';
+import charts from '../_imagens/charts.png';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -16,7 +17,7 @@ export default class Navigation extends Component {
 						<br />
 						<ul className="nav nav-tabs">
 							<li className="nav-item">
-								<Link to="/" className="nav-link active">
+								<Link to="/" className="nav-link">
 									<button type="button" className="btn btn-outline-dark">
 										Principal
 										<br />
@@ -57,6 +58,15 @@ export default class Navigation extends Component {
 										Viaturas
 										<br />
 										<img src={viatura} alt="" />
+									</button>
+								</Link>
+							</li>
+							<li className="nav-item">
+								<Link to="/graficos" className="nav-link">
+									<button type="button" className="btn btn-outline-warning">
+										Gráficos
+										<br />
+										<img src={charts} alt="" />
 									</button>
 								</Link>
 							</li>

@@ -5,6 +5,7 @@ import ModalDeletar from '../Modal/Deletar/modal.js';
 import ModalCrm from '../Modal/Crm/modal.js';
 import axios from 'axios';
 import Navigation from '../Menu';
+import { UncontrolledAlert } from 'reactstrap';
 
 export default class Crm extends Component {
 	constructor(props) {
@@ -15,7 +16,9 @@ export default class Crm extends Component {
 				nome_medico_crm: ''
 			},
 			crm: [],
-			numerador: 0
+			numerador: 0,
+			alertOk: false,
+			textAlert: ''
 		};
 	}
 
@@ -73,7 +76,10 @@ export default class Crm extends Component {
 	// passa como parametro o id que queremos deletar
 	handleDelete = (crm) => {
 		this.toggleDeletar();
-		axios.delete(`http://localhost:8000/api/crm/${crm.id}/`).then((res) => this.refreshList());
+		axios
+			.delete(`http://localhost:8000/api/crm/${crm.id}/`)
+			.then((res) => this.refreshList())
+			.then((alert) => this.onShowAlert('Apagado'));
 	};
 
 	// funcao ADICIONAR e EDITAR
@@ -81,11 +87,17 @@ export default class Crm extends Component {
 		this.toggle();
 		// SE for editar, passa como parametro o id que queremos editar + as informacoes ja preenchidas
 		if (crm.id) {
-			axios.put(`http://localhost:8000/api/crm/${crm.id}/`, crm).then((res) => this.refreshList());
+			axios
+				.put(`http://localhost:8000/api/crm/${crm.id}/`, crm)
+				.then((res) => this.refreshList())
+				.then((alert) => this.onShowAlert('Alterado'));
 			return;
 		}
 		// SE NAO, adicionamos um item novo
-		axios.post('http://localhost:8000/api/crm/', crm).then((res) => this.refreshList());
+		axios
+			.post('http://localhost:8000/api/crm/', crm)
+			.then((res) => this.refreshList())
+			.then((alert) => this.onShowAlert('Adicionado'));
 		return;
 	};
 
@@ -108,10 +120,18 @@ export default class Crm extends Component {
 		this.setState({ activeItem: crm, modalDeletar: !this.state.modalDeletar });
 	};
 
+	onShowAlert = (text) => {
+		this.setState({ alertOk: true, textAlert: text }, () => {
+			window.setTimeout(() => {
+				this.setState({ alertOk: false });
+			}, 3000);
+		});
+	};
+
 	render() {
 		return (
 			<main>
-				<Navigation/>
+				<Navigation />
 				<div id="corpo-crm" className="card">
 					<div id="header-crm" className="card-header">
 						<span className="card-title h1">CRM's</span>
@@ -121,6 +141,9 @@ export default class Crm extends Component {
 						</button>
 					</div>
 					<div id="body-crm" className="card-body">
+						<UncontrolledAlert isOpen={this.state.alertOk}>
+							CRM {this.state.textAlert} com sucesso!
+						</UncontrolledAlert>
 						<table className="table table-hover">
 							<thead className="thead-dark">
 								<tr>

@@ -35,8 +35,6 @@ export default function Relatorio() {
 		dispatch(addFilterAction(filterReport));
 	}
 
-	console.log(filterReport);
-
 	return (
 		<main>
 			<Navigation />

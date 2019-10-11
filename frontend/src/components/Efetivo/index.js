@@ -4,7 +4,8 @@ import add from '../_imagens/add.png';
 import ModalDeletar from '../Modal/Deletar/modal.js';
 import ModalEfetivo from '../Modal/Efetivo/modal.js';
 import axios from 'axios';
-import Navigation from '../Menu'
+import Navigation from '../Menu';
+import { UncontrolledAlert } from 'reactstrap';
 
 export default class Efetivo extends Component {
 	constructor(props) {
@@ -22,7 +23,9 @@ export default class Efetivo extends Component {
 				email_efetivo: ''
 			},
 			efetivo: [],
-			numerador: 0
+			numerador: 0,
+			alertOk: false,
+			textAlert: ''
 		};
 	}
 
@@ -86,7 +89,10 @@ export default class Efetivo extends Component {
 	// passa como parametro o id que queremos deletar
 	handleDelete = (efetivo) => {
 		this.toggleDeletar();
-		axios.delete(`http://localhost:8000/api/efetivo/${efetivo.id}/`).then((res) => this.refreshList());
+		axios
+			.delete(`http://localhost:8000/api/efetivo/${efetivo.id}/`)
+			.then((res) => this.refreshList())
+			.then((alert) => this.onShowAlert('Apagado'));
 	};
 
 	// funcao ADICIONAR e EDITAR
@@ -94,11 +100,17 @@ export default class Efetivo extends Component {
 		this.toggle();
 		// SE for editar, passa como parametro o id que queremos editar + as informacoes ja preenchidas
 		if (efetivo.id) {
-			axios.put(`http://localhost:8000/api/efetivo/${efetivo.id}/`, efetivo).then((res) => this.refreshList());
+			axios
+				.put(`http://localhost:8000/api/efetivo/${efetivo.id}/`, efetivo)
+				.then((res) => this.refreshList())
+				.then((alert) => this.onShowAlert('Alterado'));
 			return;
 		}
 		// SE NAO, adicionamos um item novo
-		axios.post('http://localhost:8000/api/efetivo/', efetivo).then((res) => this.refreshList());
+		axios
+			.post('http://localhost:8000/api/efetivo/', efetivo)
+			.then((res) => this.refreshList())
+			.then((alert) => this.onShowAlert('Adicionado'));
 		return;
 	};
 
@@ -131,10 +143,18 @@ export default class Efetivo extends Component {
 		this.setState({ activeItem: efetivo, modalDeletar: !this.state.modalDeletar });
 	};
 
+	onShowAlert = (text) => {
+		this.setState({ alertOk: true, textAlert: text }, () => {
+			window.setTimeout(() => {
+				this.setState({ alertOk: false });
+			}, 3000);
+		});
+	};
+
 	render() {
 		return (
 			<main>
-				<Navigation/>
+				<Navigation />
 				<div id="corpo-efetivo" className="card">
 					<div id="header-efetivo" className="card-header">
 						<span className="card-title h1">Efetivo</span>
@@ -144,6 +164,9 @@ export default class Efetivo extends Component {
 						</button>
 					</div>
 					<div id="body-efetivo" className="card-body">
+						<UncontrolledAlert isOpen={this.state.alertOk}>
+							Militar {this.state.textAlert} com sucesso!
+						</UncontrolledAlert>
 						<table className="table table-hover">
 							<thead className="thead-dark">
 								<tr>

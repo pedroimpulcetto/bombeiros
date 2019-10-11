@@ -5,6 +5,8 @@ import ModalTalao from '../Modal/Talao/modal.js';
 import axios from 'axios';
 import Navigation from '../Menu/index.js';
 import add from '../_imagens/add.png';
+import { UncontrolledAlert } from 'reactstrap';
+import { ScrollView } from '@cantonjs/react-scroll-view';
 
 export default class CorpoIndex extends Component {
 	constructor(props) {
@@ -38,7 +40,9 @@ export default class CorpoIndex extends Component {
 				comandante_talao: ''
 			},
 			talao: [],
-			numerador: 0
+			numerador: 0,
+			alertOk: false,
+			textAlert: ''
 		};
 	}
 
@@ -63,8 +67,8 @@ export default class CorpoIndex extends Component {
 		return newItems.map((talao) => (
 			<tr key={talao.id}>
 				<th scope="row">{talao.id}</th>
-				<td>{talao.data_talao}</td>
-				<td>{talao.num_talao}</td>
+				<td width={'8%'}>{talao.data_talao}</td>
+				<td width={'4%'}>{talao.num_talao}</td>
 				<td>
 					{talao.endereco_talao}, {talao.num_end_talao} - {talao.bairro_talao}
 				</td>
@@ -104,7 +108,10 @@ export default class CorpoIndex extends Component {
 	// passa como parametro o id que queremos deletar
 	handleDelete = (talao) => {
 		this.toggleDeletar();
-		axios.delete(`http://localhost:8000/api/talao/${talao.id}/`).then((res) => this.refreshList());
+		axios
+			.delete(`http://localhost:8000/api/talao/${talao.id}/`)
+			.then((res) => this.refreshList())
+			.then((alert) => this.onShowAlert('Apagado'));
 	};
 
 	// funcao ADICIONAR e EDITAR
@@ -112,11 +119,17 @@ export default class CorpoIndex extends Component {
 		this.toggle();
 		// SE for editar, passa como parametro o id que queremos editar + as informacoes ja preenchidas
 		if (talao.id) {
-			axios.put(`http://localhost:8000/api/talao/${talao.id}/`, talao).then((res) => this.refreshList());
+			axios
+				.put(`http://localhost:8000/api/talao/${talao.id}/`, talao)
+				.then((res) => this.refreshList())
+				.then((alert) => this.onShowAlert('Editado'));
 			return;
 		}
 		// SE NAO, adicionamos um item novo
-		axios.post('http://localhost:8000/api/talao/', talao).then((res) => this.refreshList());
+		axios
+			.post('http://localhost:8000/api/talao/', talao)
+			.then((res) => this.refreshList())
+			.then((alert) => this.onShowAlert('Adicionado'));
 		return;
 	};
 
@@ -165,6 +178,14 @@ export default class CorpoIndex extends Component {
 		this.setState({ activeItem: talao, modalDeletar: !this.state.modalDeletar });
 	};
 
+	onShowAlert = (text) => {
+		this.setState({ alertOk: true, textAlert: text }, () => {
+			window.setTimeout(() => {
+				this.setState({ alertOk: false });
+			}, 3000);
+		});
+	};
+
 	render() {
 		return (
 			<main>
@@ -183,24 +204,29 @@ export default class CorpoIndex extends Component {
 							</button>
 						</div>
 						<br />
-						<table className="table table-hover">
-							<thead className="thead-dark">
-								<tr>
-									<th scope="col">#</th>
-									<th scope="col">Data</th>
-									<th scope="col">Talão</th>
-									<th scope="col">Endereço</th>
-									<th scope="col">Tipo de Ocor.</th>
-									<th scope="col">Viatura</th>
-									<th scope="col">Odo. Saída</th>
-									<th scope="col">Odo. Local</th>
-									<th scope="col">Odo. Final</th>
-									<th />
-									<th />
-								</tr>
-							</thead>
-							<tbody>{this.renderItems()}</tbody>
-						</table>
+						<UncontrolledAlert isOpen={this.state.alertOk} toggle={false}>
+							Talao {this.state.textAlert} com sucesso!
+						</UncontrolledAlert>
+						<ScrollView style={{ height: '100vh' }}>
+							<table className="table table-hover">
+								<thead className="thead-dark">
+									<tr>
+										<th scope="col">#</th>
+										<th scope="col">Data</th>
+										<th scope="col">Talão</th>
+										<th scope="col">Endereço</th>
+										<th scope="col">Tipo de Ocor.</th>
+										<th scope="col">Viatura</th>
+										<th scope="col">Odo. Saída</th>
+										<th scope="col">Odo. Local</th>
+										<th scope="col">Odo. Final</th>
+										<th />
+										<th />
+									</tr>
+								</thead>
+								<tbody>{this.renderItems()}</tbody>
+							</table>
+						</ScrollView>
 						<div id="footer-talao" className="card-footer" />
 					</div>
 				</div>
