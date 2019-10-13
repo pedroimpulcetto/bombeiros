@@ -5,7 +5,7 @@ import ModalDeletar from '../Modal/Deletar/modal.js';
 import ModalEfetivo from '../Modal/Efetivo/modal.js';
 import axios from 'axios';
 import Navigation from '../Menu';
-import { UncontrolledAlert } from 'reactstrap';
+import { UncontrolledAlert, Table } from 'reactstrap';
 
 export default class Efetivo extends Component {
 	constructor(props) {
@@ -167,7 +167,7 @@ export default class Efetivo extends Component {
 						<UncontrolledAlert isOpen={this.state.alertOk}>
 							Militar {this.state.textAlert} com sucesso!
 						</UncontrolledAlert>
-						<table className="table table-hover">
+						<Table size="sm" className="table table-hover">
 							<thead className="thead-dark">
 								<tr>
 									<th scope="col">#</th>
@@ -183,7 +183,7 @@ export default class Efetivo extends Component {
 								</tr>
 							</thead>
 							<tbody>{this.renderItems()}</tbody>
-						</table>
+						</Table>
 					</div>
 					<div id="footer-efetivo" className="card-footer" />
 				</div>

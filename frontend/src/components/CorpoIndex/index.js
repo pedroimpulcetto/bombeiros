@@ -5,7 +5,7 @@ import ModalTalao from '../Modal/Talao/modal.js';
 import axios from 'axios';
 import Navigation from '../Menu/index.js';
 import add from '../_imagens/add.png';
-import { UncontrolledAlert } from 'reactstrap';
+import { UncontrolledAlert, Table } from 'reactstrap';
 import { ScrollView } from '@cantonjs/react-scroll-view';
 
 export default class CorpoIndex extends Component {
@@ -65,7 +65,7 @@ export default class CorpoIndex extends Component {
 	renderItems = () => {
 		const newItems = this.state.talao;
 		return newItems.map((talao) => (
-			<tr key={talao.id}>
+			<tr key={talao.id} bgcolor="">
 				<th scope="row">{talao.id}</th>
 				<td width={'8%'}>{talao.data_talao}</td>
 				<td width={'4%'}>{talao.num_talao}</td>
@@ -203,29 +203,82 @@ export default class CorpoIndex extends Component {
 								<img src={add} alt="" />
 							</button>
 						</div>
-						<br />
 						<UncontrolledAlert isOpen={this.state.alertOk} toggle={false}>
 							Talao {this.state.textAlert} com sucesso!
 						</UncontrolledAlert>
-						<ScrollView style={{ height: '100vh' }}>
-							<table className="table table-hover">
-								<thead className="thead-dark">
+
+						<Table size="sm" className="table table-hover">
+							<thead className="thead-dark">
+								<tr>
+									<th scope="col" width={'3%'}>
+										#
+									</th>
+									<th scope="col" width={'7%'}>
+										Data
+									</th>
+									<th scope="col" width={'6%'}>
+										Talão
+									</th>
+									<th scope="col" width={'40%'}>
+										Endereço
+									</th>
+									<th scope="col" width={'10%'}>
+										Tipo de Ocor.
+									</th>
+									<th scope="col" width={'6%'}>
+										Viatura
+									</th>
+									<th scope="col" width={'7%'}>
+										Odo. Saída
+									</th>
+									<th scope="col" width={'7%'}>
+										Odo. Local
+									</th>
+									<th scope="col" width={'7%'}>
+										Odo. Final
+									</th>
+									<th />
+									<th />
+								</tr>
+							</thead>
+						</Table>
+						<ScrollView style={{ height: '50vh' }}>
+							<Table size="sm" className="table table-hover">
+								<thead className="thead-dark" hidden>
 									<tr>
-										<th scope="col">#</th>
-										<th scope="col">Data</th>
-										<th scope="col">Talão</th>
-										<th scope="col">Endereço</th>
-										<th scope="col">Tipo de Ocor.</th>
-										<th scope="col">Viatura</th>
-										<th scope="col">Odo. Saída</th>
-										<th scope="col">Odo. Local</th>
-										<th scope="col">Odo. Final</th>
+										<th scope="col" width={'3%'}>
+											#
+										</th>
+										<th scope="col" width={'7%'}>
+											Data
+										</th>
+										<th scope="col" width={'6%'}>
+											Talão
+										</th>
+										<th scope="col" width={'40%'}>
+											Endereço
+										</th>
+										<th scope="col" width={'10%'}>
+											Tipo de Ocor.
+										</th>
+										<th scope="col" width={'6%'}>
+											Viatura
+										</th>
+										<th scope="col" width={'7%'}>
+											Odo. Saída
+										</th>
+										<th scope="col" width={'7%'}>
+											Odo. Local
+										</th>
+										<th scope="col" width={'7%'}>
+											Odo. Final
+										</th>
 										<th />
 										<th />
 									</tr>
 								</thead>
 								<tbody>{this.renderItems()}</tbody>
-							</table>
+							</Table>
 						</ScrollView>
 						<div id="footer-talao" className="card-footer" />
 					</div>
