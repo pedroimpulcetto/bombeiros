@@ -34,7 +34,7 @@ export default class Viatura extends Component {
 
 	// funcao para dar refresh a cada nova interacao com a API
 	refreshList = () => {
-		axios.get('http://localhost:8000/api/viatura').then((res) => this.setState({ viatura: res.data.results }));
+		api.get('viatura/').then((res) => this.setState({ viatura: res.data.results }));
 	};
 
 	// renderizando as linhas da tabela
@@ -78,8 +78,8 @@ export default class Viatura extends Component {
 	// passa como parametro o id que queremos deletar
 	handleDelete = (viatura) => {
 		this.toggleDeletar();
-		axios
-			.delete(`http://localhost:8000/api/viatura/${viatura.id}/`)
+		api
+			.delete(`viatura/${viatura.id}/`)
 			.then((res) => this.refreshList())
 			.then((alert) => this.onShowAlert('Apagada'));
 	};
@@ -89,17 +89,14 @@ export default class Viatura extends Component {
 		this.toggle();
 		// SE for editar, passa como parametro o id que queremos editar + as informacoes ja preenchidas
 		if (viatura.id) {
-			axios
-				.put(`http://localhost:8000/api/viatura/${viatura.id}/`, viatura)
+			api
+				.put(`viatura/${viatura.id}/`, viatura)
 				.then((res) => this.refreshList())
 				.then((alert) => this.onShowAlert('Alterada'));
 			return;
 		}
 		// SE NAO, adicionamos um item novo
-		axios
-			.post('http://localhost:8000/api/viatura/', viatura)
-			.then((res) => this.refreshList())
-			.then((alert) => this.onShowAlert('Adicionada'));
+		api.post('viatura/', viatura).then((res) => this.refreshList()).then((alert) => this.onShowAlert('Adicionada'));
 		return;
 	};
 

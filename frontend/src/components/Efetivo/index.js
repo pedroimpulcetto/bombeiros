@@ -40,7 +40,7 @@ export default class Efetivo extends Component {
 
 	// funcao para dar refresh a cada nova interacao com a API
 	refreshList = () => {
-		axios.get('http://localhost:8000/api/efetivo').then((res) => this.setState({ efetivo: res.data.results }));
+		api.get('efetivo/').then((res) => this.setState({ efetivo: res.data.results }));
 	};
 
 	// renderizando as linhas da tabela
@@ -89,8 +89,8 @@ export default class Efetivo extends Component {
 	// passa como parametro o id que queremos deletar
 	handleDelete = (efetivo) => {
 		this.toggleDeletar();
-		axios
-			.delete(`http://localhost:8000/api/efetivo/${efetivo.id}/`)
+		api
+			.delete(`efetivo/${efetivo.id}/`)
 			.then((res) => this.refreshList())
 			.then((alert) => this.onShowAlert('Apagado'));
 	};
@@ -100,17 +100,14 @@ export default class Efetivo extends Component {
 		this.toggle();
 		// SE for editar, passa como parametro o id que queremos editar + as informacoes ja preenchidas
 		if (efetivo.id) {
-			axios
-				.put(`http://localhost:8000/api/efetivo/${efetivo.id}/`, efetivo)
+			api
+				.put(`efetivo/${efetivo.id}/`, efetivo)
 				.then((res) => this.refreshList())
 				.then((alert) => this.onShowAlert('Alterado'));
 			return;
 		}
 		// SE NAO, adicionamos um item novo
-		axios
-			.post('http://localhost:8000/api/efetivo/', efetivo)
-			.then((res) => this.refreshList())
-			.then((alert) => this.onShowAlert('Adicionado'));
+		api.post('efetivo/', efetivo).then((res) => this.refreshList()).then((alert) => this.onShowAlert('Adicionado'));
 		return;
 	};
 

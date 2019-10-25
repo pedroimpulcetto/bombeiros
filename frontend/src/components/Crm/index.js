@@ -33,7 +33,7 @@ export default class Crm extends Component {
 
 	// funcao para dar refresh a cada nova interacao com a API
 	refreshList = () => {
-		axios.get('http://localhost:8000/api/crm').then((res) => this.setState({ crm: res.data.results }));
+		api.get('crm/').then((res) => this.setState({ crm: res.data.results }));
 	};
 
 	// renderizando as linhas da tabela
@@ -76,10 +76,7 @@ export default class Crm extends Component {
 	// passa como parametro o id que queremos deletar
 	handleDelete = (crm) => {
 		this.toggleDeletar();
-		axios
-			.delete(`http://localhost:8000/api/crm/${crm.id}/`)
-			.then((res) => this.refreshList())
-			.then((alert) => this.onShowAlert('Apagado'));
+		api.delete(`crm/${crm.id}/`).then((res) => this.refreshList()).then((alert) => this.onShowAlert('Apagado'));
 	};
 
 	// funcao ADICIONAR e EDITAR
@@ -87,17 +84,14 @@ export default class Crm extends Component {
 		this.toggle();
 		// SE for editar, passa como parametro o id que queremos editar + as informacoes ja preenchidas
 		if (crm.id) {
-			axios
-				.put(`http://localhost:8000/api/crm/${crm.id}/`, crm)
+			api
+				.put(`crm/${crm.id}/`, crm)
 				.then((res) => this.refreshList())
 				.then((alert) => this.onShowAlert('Alterado'));
 			return;
 		}
 		// SE NAO, adicionamos um item novo
-		axios
-			.post('http://localhost:8000/api/crm/', crm)
-			.then((res) => this.refreshList())
-			.then((alert) => this.onShowAlert('Adicionado'));
+		api.post('crm/', crm).then((res) => this.refreshList()).then((alert) => this.onShowAlert('Adicionado'));
 		return;
 	};
 
@@ -144,7 +138,7 @@ export default class Crm extends Component {
 						<UncontrolledAlert isOpen={this.state.alertOk}>
 							CRM {this.state.textAlert} com sucesso!
 						</UncontrolledAlert>
-						<table className="table table-hover">
+						<table className="table table-hover" style={{ width: '60%', alignItems: 'center' }}>
 							<thead className="thead-dark">
 								<tr>
 									<th scope="col">#</th>

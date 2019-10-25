@@ -57,7 +57,7 @@ export default class CorpoIndex extends Component {
 
 	// funcao para dar refresh a cada nova interacao com a API
 	refreshList = () => {
-		axios.get('http://localhost:8000/api/talao').then((res) => this.setState({ talao: res.data.results }));
+		api.get('talao/').then((res) => this.setState({ talao: res.data.results }));
 	};
 
 	// renderizando as linhas da tabela
@@ -108,10 +108,7 @@ export default class CorpoIndex extends Component {
 	// passa como parametro o id que queremos deletar
 	handleDelete = (talao) => {
 		this.toggleDeletar();
-		axios
-			.delete(`http://localhost:8000/api/talao/${talao.id}/`)
-			.then((res) => this.refreshList())
-			.then((alert) => this.onShowAlert('Apagado'));
+		api.delete(`talao/${talao.id}/`).then((res) => this.refreshList()).then((alert) => this.onShowAlert('Apagado'));
 	};
 
 	// funcao ADICIONAR e EDITAR
@@ -119,17 +116,14 @@ export default class CorpoIndex extends Component {
 		this.toggle();
 		// SE for editar, passa como parametro o id que queremos editar + as informacoes ja preenchidas
 		if (talao.id) {
-			axios
-				.put(`http://localhost:8000/api/talao/${talao.id}/`, talao)
+			api
+				.put(`talao/${talao.id}/`, talao)
 				.then((res) => this.refreshList())
 				.then((alert) => this.onShowAlert('Editado'));
 			return;
 		}
 		// SE NAO, adicionamos um item novo
-		axios
-			.post('http://localhost:8000/api/talao/', talao)
-			.then((res) => this.refreshList())
-			.then((alert) => this.onShowAlert('Adicionado'));
+		api.post('talao/', talao).then((res) => this.refreshList()).then((alert) => this.onShowAlert('Adicionado'));
 		return;
 	};
 
